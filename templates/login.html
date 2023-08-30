@@ -1,0 +1,76 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Log in</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'style.css'%}">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+                
+        <!-- Boxicons CSS -->
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+                        
+    </head>
+    <body>
+
+        <!-- header -->
+        <section id="header">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'img/logo.png'%}"  class="logo" alt="">
+            </a>
+            <div>
+                <ul id="navbar">
+                    <li><a href="{% url 'index' %}" class="active">Home</a></li>
+                    <li><a href="{% url 'shop' %}">Shop</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a></li>
+                    {% endif %}
+
+                    <!-- light cart <i class="fal fa-shopping-cart"></i> -->
+                </ul>
+            </div>
+
+        </section>
+
+        <section id="login" class="section-p1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <form class="box" method="post">
+                                
+                                <h1>Customer Login</h1>
+                                {% if error_message %}
+                                    <p>{{ error_message }}</p>
+                                {% endif %}
+
+                                {% csrf_token %}
+                                {% render_field form.username class="form-control" placeholder="Username" autocomplete="off" %}
+                                {% render_field form.password class="form-control" placeholder="Password" %}
+                                <input type="submit" name="" value="Login" >
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- JavaScript -->
+        <script src="{% static 'script.js' %}"></script>
+    </body>
+</html>

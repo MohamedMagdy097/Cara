@@ -1,0 +1,135 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up to Cara</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+            
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+                        
+</head>
+
+<body>
+{% block content %}
+
+    <!-- header -->
+    <section id="header">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'img/logo.png'%}"  class="logo" alt="">
+        </a>
+        <div>
+            <ul id="navbar">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'shop' %}">Shop</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a></li>
+                {% endif %}
+                <!-- light cart <i class="fal fa-shopping-cart"></i> -->
+            </ul>
+        </div>
+
+    </section>
+
+
+    {% comment %} form {% endcomment %}
+   <section id="register">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <form class="box" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h1>Customer Sign Up</h1>
+                        
+                        {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+                        {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+                        {% render_field userForm.username class="form-control" placeholder="Username" %}
+                        {% render_field userForm.password class="form-control" placeholder="Password" %}
+                        {% render_field customerForm.address class="form-control" placeholder="Address" %}
+                        {% render_field customerForm.mobile class="form-control" placeholder="Phone Number" %}
+                        {% comment %} {% render_field userForm.email class="form-control" placeholder="E-mail Address" %} {% endcomment %}
+                        <label style="color: white; margin-left: 250px;">Profile Picture</label>
+                        {% render_field customerForm.profile_pic class="form-control" placeholder="Profile pic" %}
+        
+                        <input type="submit" name="" value="Create">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+
+
+    <!-- footer -->
+    <footer class="section-p1">
+        <div class="col">
+            <a href="{% url 'index' %}"><img class="logo" src="{% static 'img/logo.png'%}" alt=""></a>
+            <h4>Contact</h4>
+            <p class="clr">{{ site.address_label}}: <strong>{{site.address}}</strong></p>
+            <p class="clr">{{ site.phone_label}}: <strong>{{site.phone}}</strong></p>
+            <p class="clr">{{ site.hours_label}}: <strong>{{site.hours}}</strong></p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <a href="{{site.facebook}}"><i class="fab fa-facebook-f"></i></a>                        
+                    <a href="{{site.twitter}}"><i class="fab fa-twitter"></i></a>                        
+                    <a href="{{site.instagram}}"><i class="fab fa-instagram"></i></a>                        
+                    <a href="{{site.pinterest}}"><i class="fab fa-pinterest-p"></i></a>                        
+                    <a href="{{site.youtube}}"><i class="fab fa-youtube"></i></a>                        
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <br><br><br>
+            <h4>{{site.about_label}}</h4>
+            <a href="{{site.about_us}}">{{site.about_us_label}}</a>
+            <a href="{{site.delivery_information}}">{{site.delivery_information_label}}</a>
+            <a href="{{site.privacy_policy}}">{{site.privacy_policy_label}}</a>
+            <a href="{{site.terms_conditions}}">{{site.terms_conditions_label}}</a>
+            <a href="{{site.contact_us}}">{{site.contact_us_label}}</a>
+        </div>
+        <div class="col">
+            <br><br><br>
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="{% url 'cart' %}">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col install">
+            <br><br><br>
+            <h4>Install App</h4>
+            <p>From App Stor or Google Play</p>
+            <div class="row">
+                <img src="{% static 'img/pay/app.jpg'%}" alt="">
+                <img src="{% static 'img/pay/play.jpg'%}" alt="">
+            </div>
+            <p>Secure Payment Gateways</p>
+            <img src="{% static 'img/pay/pay.png'%}" alt="">
+        </div>
+
+        <div class="copyright">
+            <p>© 2023, Mohamed Magdy - ITI::DR. Kamal Radwan</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{% static 'script.js' %}"></script>
+{% endblock %}
+</body>
+</html>
