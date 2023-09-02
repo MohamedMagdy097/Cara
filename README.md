@@ -5,9 +5,9 @@
 Python 3.11.4
 ---
 ### How it works :
-#### py -m venv djangoenv
-### cd djangoenv
-### Scripts\activate
+* py -m venv djangoenv
+* cd djangoenv
+* Scripts\activate
 * pip install django
 * pip install django-widget-tweaks
 * pip install Pillow
