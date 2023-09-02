@@ -27,19 +27,18 @@
             </a>
             <div>
                 <ul id="navbar">
-                    <li><a href="{% url 'index' %}" class="active">Home</a></li>
+                    <li><a href="{% url 'index' %}">Home</a></li>
                     <li><a href="{% url 'shop' %}">Shop</a></li>
                     <li><a href="{% url 'blog' %}">Blog</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
-                    <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a></li>
-                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a></li>
+                    {% if len %}
+                    {% comment %} <i class="fas fa-cart-arrow-down"></i> {% endcomment %}
+                    <li><a href="{% url 'cart' %}" ><i class="fas fa-shopping-cart"></i><span>{{len}}</span></a></li>
                     {% else %}
-                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a></li>
+                    <li><a href="{% url 'cart' %}"><i class="fal fa-shopping-cart"></i></a></li>
                     {% endif %}
-
-                    <!-- light cart <i class="fal fa-shopping-cart"></i> -->
+                    <li><a href="{% url 'login' %}" class="active"><i class="fas fa-sign-in-alt"></i></a></li>
                 </ul>
             </div>
 
@@ -61,8 +60,9 @@
                                 {% render_field form.username class="form-control" placeholder="Username" autocomplete="off" %}
                                 {% render_field form.password class="form-control" placeholder="Password" %}
                                 <input type="submit" name="" value="Login" >
-                                
+                                <h5>Not Registered Yet? <a href="{% url 'register' %}">Create Account</a> </h5>
                             </form>
+                            
                         </div>
                     </div>
                 </div>

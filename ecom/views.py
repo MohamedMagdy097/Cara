@@ -20,11 +20,6 @@ def get_products(request):
         if product_ids != "":
             product_id_in_cart = product_ids.split('|')
             products = models.Product.objects.all().filter(id__in = product_id_in_cart)
-            # in cart template :->
-            # total = 0
-            # #for total price shown in cart
-            # for p in products:
-            #     total = total + p.price
     return products 
 
 def get_length(request): 
@@ -151,24 +146,52 @@ def about(request):
     return response
 
 def contact(request):
-    # contact = models.Contact.objects.get(pk=1)
+    contact = models.Contact.objects.get(pk = 1)
+    people = models.People.objects.all()
     products = models.Product.objects.all()
     site = models.Site.objects.get(pk = 1)
-    user = request.user
     len = get_length(request)
+    user = request.user
+    word = ""
 
-    context = {'site': site, 'products': products, 'user': user, 'len': len}
-    response = render(request, 'contact.html', context)
+    if request.method == 'POST':
+        massageForm = forms.MassageForm(request.POST)
+
+        if massageForm.is_valid():
+            massage = massageForm.save(commit=False)
+            if user.is_authenticated:
+                try:
+                    customer = models.Customer.objects.get(user=user)
+                    massage.user = customer  # Assign the Customer instance
+                    massage.save()
+                    word = massage.subject + ' sent to our team successfully!'
+
+                except models.Customer.DoesNotExist:
+                    massageForm = forms.MassageForm(request.FILES)
+                    word = 'You need to login first!!'
+                    return render(request, 'contact.html', context)
+
+    else:
+        massageForm = forms.MassageForm()
+        word = "Let'sTalk"
+
+    context = {'massageForm': massageForm,'site': site, 'products': products, 'user': user, 'len': len, 'contact': contact, 'people': people, 'word': word}
     
-    return response
+    return render(request, 'contact.html', context)
 
 def cart(request):
     products = get_products(request)
     site = models.Site.objects.get(pk = 1)
     user = request.user
     len = get_length(request)
+    
+    total = 0
+    #for total price shown in cart
+    if products:
+        for p in products:
+            total = total + p.price
 
-    context = {'site': site, 'products': products, 'user': user, 'len': len}
+    context = {'site': site, 'products': products, 'user': user, 'len': len, 'total': total}
     response = render(request, 'cart.html', context)
     
     return response
@@ -225,7 +248,7 @@ def removeFromCart(request, pk):
             else:
                 value = value + "|" + product_id_in_cart[i]
                 
-        context = {'products': products, 'total': total, 'len': length, 'site': site}
+        context = {'products': products, 'total': total, 'len': length, 'site': site, 'user': request.user}
         response = render(request, 'cart.html', context)
         if value == "":
             response.delete_cookie('product_ids')
@@ -233,3 +256,14 @@ def removeFromCart(request, pk):
         response.set_cookie('product_ids', value)
         return response
     
+def profile(request):
+    products = models.Product.objects.all()
+    site = models.Site.objects.get(pk = 1)
+    user = request.user
+    customer = models.Customer.objects.get(user = user)
+    len = get_length(request)
+
+    context = {'site': site, 'products': products, 'user': user, 'len': len, 'customer': customer}
+    response = render(request, 'profile.html', context)
+    
+    return response

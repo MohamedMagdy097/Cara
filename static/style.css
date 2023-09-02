@@ -142,12 +142,20 @@ body {
 #navbar li a i {
     font-size: larger;
 }
+/* #navbar li a span {
+    position: relative;
+    top: 15px;
+    right: 15px;
+    padding: 1px;
+    background: white;
+    border-radius: 45px;
+} */
 
 
 /* USERS NAV */
 .row1 {
     padding-top: 10px;
-    padding-right: 50px
+    padding-right: 50px;
 }
 div.users-nav {
     background-color: #3e454c;
@@ -162,7 +170,7 @@ div.users-nav {
     color: inherit;
     border: none;
     outline: none;
-    font-size: 12px
+    font-size: 12px;
 }
 .pull-right {
     margin-left: auto;
@@ -170,19 +178,19 @@ div.users-nav {
 .dropdown {
     position: relative;
     display: inline-block;
-    margin-bottom: 0px
+    margin-bottom: 0px;
 }
 
 .dropdown:hover {
-    background-color: #fff
+    background-color: #fff;
 }
 
 .dropdown:hover .links {
-    color: #000
+    color: #000;
 }
 
 .dropdown:hover .dropdown-menu {
-    display: block
+    display: block;
 }
 
 .dropdown .dropdown-menu {
@@ -196,17 +204,17 @@ div.users-nav {
     border-radius: 0;
     box-shadow: 0 4px 8px -3px #555454;
     margin: 0;
-    padding: 0px
+    padding: 0px;
 }
 
 .links {
     color: #fff;
-    text-decoration: none
+    text-decoration: none;
 }
 
 .links:hover {
     color: #fff;
-    text-decoration: none
+    text-decoration: none;
 }
 
 .profile-links {
@@ -217,11 +225,11 @@ div.users-nav {
     box-sizing: border-box;
     display: block;
     padding: 0 11px;
-    line-height: 23px
+    line-height: 23px;
 }
 
 .profile-li {
-    padding-top: 2px
+    padding-top: 2px;
 }
 
 /* hero */
@@ -780,11 +788,26 @@ footer .copyright {
     flex-direction: column;
     align-items: flex-start;
 }
+#form-details form input {
+    width: 100%;
+    padding: 12px 15px;
+    outline: none;
+    margin-bottom: 20px;
+    border: 1px solid #e1e1e1;
+}
+#form-details form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    outline: none;
+    margin-bottom: 20px;
+    border: 1px solid #e1e1e1;
+}
 #form-details form button {
     color: white;
     background-color: #088178;
 }
-#form-details .people {
+/* people */
+#form-details .people div{
     padding-bottom: 25px;
     display: flex;
     align-items: flex-start;
@@ -858,6 +881,11 @@ footer .copyright {
 }
 #cart table tbody td {
     font-size: 13px;
+}
+#cart table tbody td a {
+    border: 1px solid red;
+    border-radius: 100%;
+    padding: 10px;
 }
 /* cart additionals */
 #cart-add {
@@ -945,6 +973,11 @@ footer .copyright {
 }
 
 .box h1 {
+    color: white;
+    /* text-transform: uppercase; */
+    font-weight: 500
+}
+.box h5 {
     color: white;
     /* text-transform: uppercase; */
     font-weight: 500

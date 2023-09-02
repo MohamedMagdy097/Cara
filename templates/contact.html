@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Contact Cara</title>
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
         <link rel="stylesheet" href="{% static 'style.css'%}">
@@ -27,13 +28,26 @@
                     <li><a href="{% url 'blog' %}">Blog</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'contact' %}" class="active">Contact</a></li>
-                    <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a></li>
+                    {% if len %}
+                    {% comment %} <i class="fas fa-cart-arrow-down"></i> {% endcomment %}
+                    <li><a href="{% url 'cart' %}" ><i class="fas fa-shopping-cart"></i><span>{{len}}</span></a></li>
+                    {% else %}
+                    <li><a href="{% url 'cart' %}"><i class="fal fa-shopping-cart"></i></a></li>
+                    {% endif %}
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a></li>
+                    <li>
+                        <ul class="largenav pull-right">
+                            <li class="upper-links dropdown"><a class="links" href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a>
+                                <ul class="dropdown-menu">
+                                    <li class="profile-li"><a class="profile-links" href="#">Profile</a></li>
+                                    <li class="profile-li"><a class="profile-links" href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                            </li>                          
+                        </ul>
+                    </li>
                     {% else %}
                     <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a></li>
                     {% endif %}
-                    <!-- light cart <i class="fal fa-shopping-cart"></i> -->
                 </ul>
             </div>
 
@@ -79,24 +93,36 @@
 
         <!-- contact form -->
         <section id="form-details">
-            <form method="POST" action=".">
+            <form method="POST" action="{% url 'contact' %}">
                 <span>LEAVE A MASSAGE</span>
                 <h2>We love to hear from you</h2>
+                {% if word %}
+                <h3>{{word}}</h3>
+                {% else %}
+                <h3>You need to Login First!!</h3>
+                {% endif %}
+                
                 {% csrf_token %}
-                {{ form.as_div }}
+                {% render_field massageForm.email class="form-control" placeholder="E-mail" %}
+                {% render_field massageForm.subject class="form-control" placeholder="Subject" %}
+                {% render_field massageForm.msg class="form-control" placeholder="Message" %}
+
                 <div class="field">
                     <div class="control">
                         <button type="submit" class="normal">Submit</button>
                     </div>
                 </div>
-                
+
             </form>
-            {% for person in people %}
             <div class="people">
-                <img src="{{person.img.url}}" alt="">
-                <p><span>{{person.name}}</span> {{person.job}} <br>Phone : {{person.phone}} <br>Email : {{person.email}}</p>
+                {% for person in people %}
+                <div>
+                    <img src="{{person.img.url}}" alt="">
+                    <p><span>{{person.name}}</span> {{person.job}} <br>Phone : {{person.phone}} <br>Email : {{person.email}}</p>
+                </div>
+                {%endfor%}
             </div>
-            {%endfor%}
+
         </section>
 
 

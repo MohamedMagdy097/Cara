@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-
+#users
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     address = models.CharField(max_length = 511)
@@ -17,6 +17,7 @@ class Customer(models.Model):
     def __str__(self):
         return self.user.first_name
 
+#site
 class Site(models.Model):
     # logo inside navbar
     logo = models.ImageField(upload_to='static/img/')
@@ -111,7 +112,8 @@ class Shop(models.Model):
     
     class Meta:
         ordering = ['-date_added']
-             
+
+#product      
 class Product(models.Model):
     slug = models.SlugField()
     
@@ -137,3 +139,41 @@ class ProductDetail(models.Model):
     img3 = models.ImageField(upload_to='static/img/', blank=True, null=True)
     description = models.TextField(blank = True, null = True)
     
+#contact
+class Contact(models.Model):
+    # page header text
+    page_header_h2 = models.CharField(max_length=255)
+    page_header_p = models.TextField()
+    # contact details
+    details_span = models.CharField(max_length=255)
+    details_h2 = models.TextField()
+    details_h3 = models.CharField(max_length=255)
+    details_map = models.TextField()
+    details_env = models.TextField()
+    details_phone = models.TextField()
+    details_hours = models.TextField()
+    map = models.TextField()
+    
+    date_added = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ['-date_added']
+        
+class People(models.Model):
+    name = models.CharField(max_length=255)
+    job = models.TextField()
+    img = models.ImageField(upload_to='static/img/')
+    phone = models.TextField()
+    email = models.EmailField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ['date_added']
+
+class Massage(models.Model):
+    person = models.ForeignKey(People, related_name='msgs', on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(Customer, related_name='contactmsgs', on_delete=models.CASCADE)
+    email = models.EmailField()
+    subject = models.CharField(max_length=255)
+    msg = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ['date_added']

@@ -13,6 +13,7 @@
     </head>
     {% block content %}
     <body>
+
         <!-- header -->
         <section id="header">
             <a href="{% url 'index' %}">
@@ -25,13 +26,26 @@
                     <li><a href="{% url 'blog' %}">Blog</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
-                    <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a></li>
+                    {% if len %}
+                    {% comment %} <i class="fas fa-cart-arrow-down"></i> {% endcomment %}
+                    <li><a href="{% url 'cart' %}" ><i class="fas fa-shopping-cart"></i><span>{{len}}</span></a></li>
+                    {% else %}
+                    <li><a href="{% url 'cart' %}"><i class="fal fa-shopping-cart"></i></a></li>
+                    {% endif %}
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a></li>
+                    <li>
+                        <ul class="largenav pull-right">
+                            <li class="upper-links dropdown"><a class="links" href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a>
+                                <ul class="dropdown-menu">
+                                    <li class="profile-li"><a class="profile-links" href="#">Profile</a></li>
+                                    <li class="profile-li"><a class="profile-links" href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                            </li>                          
+                        </ul>
+                    </li>
                     {% else %}
                     <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a></li>
                     {% endif %}
-                    <!-- light cart <i class="fal fa-shopping-cart"></i> -->
                 </ul>
             </div>
 
@@ -65,7 +79,7 @@
                         </div>
                         <h4>${{item.price}}.00</h4>
                     </div>
-                    <a href="{% url 'sproduct' slug=item.slug %}"><i class='cart fal fa-shopping-cart'></i></a>
+                    <a href="{% url 'addtocart' pk=item.pk %}"><i class='cart fal fa-shopping-cart'></i></a>
                 </div>
                 {% endfor %}
             </div>
