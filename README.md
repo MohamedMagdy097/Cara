@@ -10,8 +10,8 @@ Python 3.11.4
 * pip install pythonpy
 * py -m venv djangoenv
 * cd djangoenv
-* pip install django
 * Scripts\activate
+* pip install django
 * pip install django-widget-tweaks
 * pip install Pillow
 * git clone https://github.com/MohamedMagdy097/Cara_Ecommerce-django-website.git
