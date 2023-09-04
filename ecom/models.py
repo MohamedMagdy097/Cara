@@ -157,14 +157,14 @@ class Contact(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering = ['-date_added']
-        
+
 class People(models.Model):
-    name = models.CharField(max_length=255)
-    job = models.TextField()
-    img = models.ImageField(upload_to='static/img/')
+    name = models.CharField(max_length=255) #
+    job = models.TextField() #
+    img = models.ImageField(upload_to='static/img/') #
     phone = models.TextField()
     email = models.EmailField()
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(auto_now_add=True) #
     class Meta:
         ordering = ['date_added']
 

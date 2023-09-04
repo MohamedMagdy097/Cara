@@ -256,7 +256,7 @@ def removeFromCart(request, pk):
         response.set_cookie('product_ids', value)
         return response
     
-def profile(request):
+def profile(request, username):
     products = models.Product.objects.all()
     site = models.Site.objects.get(pk = 1)
     user = request.user
@@ -265,5 +265,5 @@ def profile(request):
 
     context = {'site': site, 'products': products, 'user': user, 'len': len, 'customer': customer}
     response = render(request, 'profile.html', context)
-    
+
     return response

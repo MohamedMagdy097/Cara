@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cara Ecommerce Website Django Project</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+    {% block content%}
+    <body>
+        
+        <!-- header -->
+        <section id="header">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'img/logo.png'%}"  class="logo" alt="">
+            </a>
+            <div>
+                <ul id="navbar">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'shop' %}">Shop</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    {% if len %}
+                    <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span>{{len}}</span></a></li>
+                    {% else %}
+                    <li><a href="{% url 'cart' %}"><i class="fal fa-shopping-cart"></i></a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li>
+                        <ul class="largenav pull-right">
+                            <li class="upper-links dropdown"><a class="links" href="{% url 'index' %}"><img src="{{user.customer.profile_pic.url}}" width="30px" height="30px"></a>
+                                <ul class="dropdown-menu">
+                                    <li class="active profile-li"><a class="profile-links" href="{% url '' username=user.username %}">Profile</a></li>
+                                    <li class="profile-li"><a class="profile-links" href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                            </li>                          
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a></li>
+                    {% endif %}
+                    <li><a> </a></li>
+                    <li><a> </a></li>
+                </ul>
+            </div>
+        </section>
+
+        
+
+
+        
+        <!-- vsm-banner -->
+        <section id="vsm-banner">
+            <div class="banner-box">
+                <h2>{{site.vsm_banner1_h4}}</h2>
+                <h3>{{site.vsm_banner1_h2}}</h3>
+            </div>
+
+            <div class="banner-box banner-box2">
+                <h2>{{site.vsm_banner2_h4}}</h2>
+                <h3>{{site.vsm_banner2_h2}}</h3>
+            </div>
+
+            <div class="banner-box banner-box3">
+                <h2>{{site.vsm_banner3_h4}}</h2>
+                <h3>{{site.vsm_banner3_h2}}</h3>
+            </div>
+        </section>
+
+        
+        <!-- footer -->
+        <footer class="section-p1">
+            <div class="col">
+                <a href="{% url 'index' %}"><img class="logo" src="{% static 'img/logo.png'%}" alt=""></a>
+                <h4>Contact</h4>
+                <p class="clr">{{ site.address_label}}: <strong>{{site.address}}</strong></p>
+                <p class="clr">{{ site.phone_label}}: <strong>{{site.phone}}</strong></p>
+                <p class="clr">{{ site.hours_label}}: <strong>{{site.hours}}</strong></p>
+                <div class="follow">
+                    <h4>Follow us</h4>
+                    <div class="icon">
+                        <a href="{{site.facebook}}"><i class="fab fa-facebook-f"></i></a>                        
+                        <a href="{{site.twitter}}"><i class="fab fa-twitter"></i></a>                        
+                        <a href="{{site.instagram}}"><i class="fab fa-instagram"></i></a>                        
+                        <a href="{{site.pinterest}}"><i class="fab fa-pinterest-p"></i></a>                        
+                        <a href="{{site.youtube}}"><i class="fab fa-youtube"></i></a>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <br><br><br>
+                <h4>{{site.about_label}}</h4>
+                <a href="{{site.about_us}}">{{site.about_us_label}}</a>
+                <a href="{{site.delivery_information}}">{{site.delivery_information_label}}</a>
+                <a href="{{site.privacy_policy}}">{{site.privacy_policy_label}}</a>
+                <a href="{{site.terms_conditions}}">{{site.terms_conditions_label}}</a>
+                <a href="{{site.contact_us}}">{{site.contact_us_label}}</a>
+            </div>
+            <div class="col">
+                <br><br><br>
+                <h4>My Account</h4>
+                <a href="#">Sign In</a>
+                <a href="{% url 'cart' %}">View Cart</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track My Order</a>
+                <a href="#">Help</a>
+            </div>
+            <div class="col install">
+                <br><br><br>
+                <h4>Install App</h4>
+                <p>From App Stor or Google Play</p>
+                <div class="row">
+                    <img src="{% static 'img/pay/app.jpg'%}" alt="">
+                    <img src="{% static 'img/pay/play.jpg'%}" alt="">
+                </div>
+                <p>Secure Payment Gateways</p>
+                <img src="{% static 'img/pay/pay.png'%}" alt="">
+            </div>
+
+            <div class="copyright">
+                <p>© 2023, Mohamed Magdy - ITI::DR. Kamal Radwan</p>
+            </div>
+        </footer>
+
+        {%endblock%}
+        <script src="{% static 'script.js'%}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    </body>
+
+</html>
