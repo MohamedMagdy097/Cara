@@ -5,6 +5,7 @@
 Python 3.11.4
 ---
 ### How it works :
+* pip install pythonpy
 * py -m venv djangoenv
 * cd djangoenv
 * Scripts\activate
