@@ -5,6 +5,8 @@
 Python 3.11.4
 ---
 ### How it works :
+* curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+* python get-pip.py
 * pip install pythonpy
 * py -m venv djangoenv
 * cd djangoenv
