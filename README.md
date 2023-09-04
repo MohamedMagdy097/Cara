@@ -1,4 +1,20 @@
 # Cara
-###  an Ecommerce django-based website
+### Ecommerce django-based website
 ---
-Here is how it looks right now, although it still going to have alot more features along the way! <3 
+### Requirements :
+Python 3.11.4
+---
+### How it works :
+* py -m venv djangoenv
+* cd djangoenv
+* Scripts\activate
+* pip install django
+* pip install django-widget-tweaks
+* pip install Pillow
+* git clone https://github.com/MohamedMagdy097/Cara_Ecommerce-django-website.git
+* cd Cara_Ecommerce-django-website
+* py manage.py makemigrations
+* py manage.py migrate
+* py manage.py runserver
+* Then go to any web browser and type : localhost:8000 *
+---
